@@ -165,7 +165,7 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
         public void init(){
             try {
                         Toast.makeText(activity,"正在连接",Toast.LENGTH_LONG).show();
-                        socket1 = new Socket("192.168.1.159", 8080);
+                        socket1 = new Socket("192.168.1.230", 8080);
                         Log.e("JHH","新建了Sockect");
 
             } catch (IOException e) {
