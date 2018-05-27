@@ -15,20 +15,20 @@ import com.example.jinha.wlwlab.R;
  * Created by jinha on 2017/9/23.
  */
 
-public class Rom_Fragment_2 extends Fragment {
+public class Agriculture_Fragment_2 extends Fragment {
     Activity activity;
 
-    public Rom_Fragment_2(){}
+    public Agriculture_Fragment_2(){}
 
     @SuppressLint("ValidFragment")
-    public Rom_Fragment_2(Activity activity){
+    public Agriculture_Fragment_2(Activity activity){
         this.activity = activity;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = activity.getLayoutInflater().inflate(R.layout.fragment_rom2,null);
+        View view = activity.getLayoutInflater().inflate(R.layout.fragment_agriculture2,null);
 
         return view;
     }

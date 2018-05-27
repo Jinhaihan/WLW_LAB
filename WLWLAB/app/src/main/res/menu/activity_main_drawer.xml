@@ -3,13 +3,21 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_rom"
+            android:id="@+id/nav_Agriculture"
             android:icon="@drawable/rom_icon"
             android:title="智慧农业" />
+
+        <item
+            android:id="@+id/nav_SmartHome"
+            android:icon="@drawable/lab_icon"
+            android:title="智能家居" />
+
         <item
             android:id="@+id/nav_lab"
             android:icon="@drawable/lab_icon"
             android:title="试验箱" />
+
+
     </group>
 
     <item android:title="Communicate">

@@ -6,13 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.jinha.wlwlab.Adapter.Rom_Adapter;
+import com.example.jinha.wlwlab.Adapter.Agriculture_Adapter;
+import com.example.jinha.wlwlab.Adapter.SmartHome_Adapter;
+import com.example.jinha.wlwlab.Configuration;
 import com.example.jinha.wlwlab.R;
 
 /**
@@ -20,13 +21,14 @@ import com.example.jinha.wlwlab.R;
  */
 
 @SuppressLint("ValidFragment")
-public class Rom_Fragment extends Fragment {
+public class SmartHome_Fragment extends Fragment {
     Activity activity;
     ViewPager mViewPager;
-    Rom_Adapter rom_adapter;
+    SmartHome_Adapter smartHome_adapter;
+    static Configuration configuration = new Configuration();
 
     @SuppressLint("ValidFragment")
-    public Rom_Fragment(Activity activity){
+    public SmartHome_Fragment(Activity activity){
         this.activity = activity;
 
     }
@@ -34,11 +36,11 @@ public class Rom_Fragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = activity.getLayoutInflater().inflate(R.layout.fragment_rom,null);
+        View view = activity.getLayoutInflater().inflate(R.layout.fragment_smarthome,null);
 
-        rom_adapter = new Rom_Adapter(getChildFragmentManager(),activity);
-        mViewPager =  view.findViewById(R.id.container_rom);
-        mViewPager.setAdapter(rom_adapter);
+        smartHome_adapter = new SmartHome_Adapter(getChildFragmentManager(),activity);
+        mViewPager =  view.findViewById(R.id.container_smarthome);
+        mViewPager.setAdapter(smartHome_adapter);
 
         TabLayout tabLayout =  activity.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);

@@ -15,7 +15,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,17 +24,15 @@ import android.widget.Toast;
 
 import com.example.jinha.wlwlab.R;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 /**
  * Created by jinha on 2017/9/23.
  */
 
-public class Rom_Fragment_1 extends Fragment implements View.OnClickListener {
+public class Agriculture_Fragment_1 extends Fragment implements View.OnClickListener {
     Activity activity;
     Socket socket1;
     Socket socket2;
@@ -52,17 +49,17 @@ public class Rom_Fragment_1 extends Fragment implements View.OnClickListener {
     //byte[] light2_on =
     //byte[] light2_off =
 
-    public Rom_Fragment_1(){}
+    public Agriculture_Fragment_1(){}
 
     @SuppressLint("ValidFragment")
-    public Rom_Fragment_1(Activity activity){
+    public Agriculture_Fragment_1(Activity activity){
         this.activity = activity;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = activity.getLayoutInflater().inflate(R.layout.fragment_rom1,null);
+        View view = activity.getLayoutInflater().inflate(R.layout.fragment_agriculture1,null);
 
         netThread = new NetThread();
         netThread.start();
@@ -205,7 +202,8 @@ public class Rom_Fragment_1 extends Fragment implements View.OnClickListener {
         public void init(){
             try {
                         Toast.makeText(activity,"正在连接",Toast.LENGTH_LONG).show();
-                        socket1 = new Socket("49.122.47.231", 8080);
+                        socket1 = new Socket("192.168.1.159", 8080);//192.168.1.159  49.122.47.231
+
                         Log.e("JHH","新建了Sockect");
 
             } catch (IOException e) {

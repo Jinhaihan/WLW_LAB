@@ -10,11 +10,8 @@ package com.example.jinha.wlwlab;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,7 +24,8 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import com.example.jinha.wlwlab.Fragment.Lab_Fragment;
-import com.example.jinha.wlwlab.Fragment.Rom_Fragment;
+import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment;
+import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment;
 import com.jaeger.library.StatusBarUtil;
 
 
@@ -38,8 +36,9 @@ public class MainActivity extends AppCompatActivity
     LinearLayout img_title ;
     Toolbar toolbar;
     DrawerLayout drawer;
-    Rom_Fragment rom_fragment;
+    Agriculture_Fragment agriculture_fragment;
     Lab_Fragment lab_fragment;
+    SmartHome_Fragment smartHome_fragment;
     TabLayout tabLayout;
     FragmentManager fragmentManager = getSupportFragmentManager();
 
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         img_title = (LinearLayout) findViewById(R.id.img_title);
 
-        rom_fragment = new Rom_Fragment(this);
+        agriculture_fragment = new Agriculture_Fragment(this);
 
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -74,13 +73,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        navigationView.setCheckedItem(R.id.nav_rom);
+        navigationView.setCheckedItem(R.id.nav_Agriculture);
         setTitle("物联网与云计算重点实验室");
         setStatusBar(drawer,Color.parseColor("#47AA71"));
 
 
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_main,rom_fragment);
+        fragmentTransaction.replace(R.id.fragment_main, agriculture_fragment);
         fragmentTransaction.commit();
     }
 
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        if (id == R.id.nav_rom) {
+        if (id == R.id.nav_Agriculture) {
             if(img_title == null)
                 img_title = (LinearLayout) findViewById(R.id.img_title);
             img_title.setBackgroundResource(R.drawable.rom_title);
@@ -130,12 +129,12 @@ public class MainActivity extends AppCompatActivity
             setStatusBar(drawer,Color.parseColor("#47AA71"));
             tabLayout.setBackgroundColor(Color.parseColor("#47AA71"));
 
-           if(rom_fragment == null)
-               rom_fragment = new Rom_Fragment(this);
+           if(agriculture_fragment == null)
+               agriculture_fragment = new Agriculture_Fragment(this);
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_main,rom_fragment);
+            fragmentTransaction.replace(R.id.fragment_main, agriculture_fragment);
             fragmentTransaction.commit();
-            Log.e("JHH","切换为Rom");
+            Log.e("JHH","切换为Agriculture");
 
         } else if (id == R.id.nav_lab) {
             if(img_title == null)
@@ -151,7 +150,20 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_main,lab_fragment);
             fragmentTransaction.commit();
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_SmartHome) {
+            if(img_title == null)
+                img_title = (LinearLayout) findViewById(R.id.img_title);
+            img_title.setBackgroundResource(R.drawable.rom_title);
+            toolbar.setBackgroundColor(Color.parseColor("#47AA71"));
+            setStatusBar(drawer,Color.parseColor("#47AA71"));
+            tabLayout.setBackgroundColor(Color.parseColor("#47AA71"));
+
+            if(smartHome_fragment == null)
+                smartHome_fragment = new SmartHome_Fragment(this);
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_main, smartHome_fragment);
+            fragmentTransaction.commit();
+            Log.e("JHH","切换为SmartHome");
 
         } else if (id == R.id.nav_send) {
 
