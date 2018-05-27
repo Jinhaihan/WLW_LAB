@@ -1,0 +1,49 @@
+package com.example.jinha.wlwlab.Fragment;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.jinha.wlwlab.Adapter.Rom_Adapter;
+import com.example.jinha.wlwlab.R;
+
+/**
+ * Created by jinha on 2017/9/25.
+ */
+
+@SuppressLint("ValidFragment")
+public class Rom_Fragment extends Fragment {
+    Activity activity;
+    ViewPager mViewPager;
+    Rom_Adapter rom_adapter;
+
+    @SuppressLint("ValidFragment")
+    public Rom_Fragment(Activity activity){
+        this.activity = activity;
+
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = activity.getLayoutInflater().inflate(R.layout.fragment_rom,null);
+
+        rom_adapter = new Rom_Adapter(getChildFragmentManager(),activity);
+        mViewPager =  view.findViewById(R.id.container_rom);
+        mViewPager.setAdapter(rom_adapter);
+
+        TabLayout tabLayout =  activity.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+
+        return view;
+    }
+
+}
