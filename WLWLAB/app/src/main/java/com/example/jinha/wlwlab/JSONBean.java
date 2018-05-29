@@ -10,18 +10,36 @@ public class JSONBean {
      * operation : F1 28 15 35 35 13      //具体指令，直接转发对应串口
      */
 
-    private String Name;
+    private String name;
+    private String op;
+    private String data;
     private String frequency;
     private String ctrl;
     private String operation_type;
     private byte operation[];
 
+    public String getOp() {
+        return op;
+    }
+
+    public void setOp(String op) {
+        this.op = op;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String Name) {
-        this.Name = Name;
+        this.name = Name;
     }
 
     public String getFrequency() {

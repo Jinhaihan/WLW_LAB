@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_Agriculture) {
             if(img_title == null)
                 img_title = (LinearLayout) findViewById(R.id.img_title);
-            img_title.setBackgroundResource(R.drawable.rom_title);
+            img_title.setBackgroundResource(R.drawable.agriculture_title);
             toolbar.setBackgroundColor(Color.parseColor("#47AA71"));
             setStatusBar(drawer,Color.parseColor("#47AA71"));
             tabLayout.setBackgroundColor(Color.parseColor("#47AA71"));
@@ -139,10 +139,14 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_lab) {
             if(img_title == null)
                 img_title = (LinearLayout) findViewById(R.id.img_title);
+//            img_title.setBackgroundResource(R.drawable.lab_title);
+//            toolbar.setBackgroundColor(Color.parseColor("#8A2BE2"));
+//            setStatusBar(drawer,Color.parseColor("#8A2BE2"));
+//            tabLayout.setBackgroundColor(Color.parseColor("#8A2BE2"));
             img_title.setBackgroundResource(R.drawable.lab_title);
-            toolbar.setBackgroundColor(Color.parseColor("#8A2BE2"));
-            setStatusBar(drawer,Color.parseColor("#8A2BE2"));
-            tabLayout.setBackgroundColor(Color.parseColor("#8A2BE2"));
+            toolbar.setBackgroundColor(Color.parseColor("#1976D2"));
+            setStatusBar(drawer,Color.parseColor("#1976D2"));
+            tabLayout.setBackgroundColor(Color.parseColor("#1976D2"));
 
             if(lab_fragment == null)
                lab_fragment = new Lab_Fragment(this);
@@ -153,10 +157,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_SmartHome) {
             if(img_title == null)
                 img_title = (LinearLayout) findViewById(R.id.img_title);
-            img_title.setBackgroundResource(R.drawable.rom_title);
-            toolbar.setBackgroundColor(Color.parseColor("#47AA71"));
-            setStatusBar(drawer,Color.parseColor("#47AA71"));
-            tabLayout.setBackgroundColor(Color.parseColor("#47AA71"));
+            img_title.setBackgroundResource(R.drawable.agriculture_title);
+            toolbar.setBackgroundColor(Color.parseColor("#5D4037"));
+            setStatusBar(drawer,Color.parseColor("#5D4037"));
+            tabLayout.setBackgroundColor(Color.parseColor("#5D4037"));
 
             if(smartHome_fragment == null)
                 smartHome_fragment = new SmartHome_Fragment(this);

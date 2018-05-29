@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.jinha.wlwlab.Configuration;
 import com.example.jinha.wlwlab.JSONBean;
 import com.example.jinha.wlwlab.R;
 import com.google.gson.Gson;
@@ -36,7 +35,7 @@ import java.net.Socket;
  * Created by jinha on 2017/9/23.
  */
 
-public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListener {
+public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListener {
     Activity activity;
     Socket socket1;
     Socket socket2;
@@ -53,23 +52,23 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
     //byte[] light2_on =
     //byte[] light2_off =
 
-    public SmartHome_Fragment_1(){}
+    public SmartHome_Fragment_2(){}
 
     @SuppressLint("ValidFragment")
-    public SmartHome_Fragment_1(Activity activity){
+    public SmartHome_Fragment_2(Activity activity){
         this.activity = activity;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = activity.getLayoutInflater().inflate(R.layout.fragment_smarthome1,null);
+        View view = activity.getLayoutInflater().inflate(R.layout.fragment_smarthome2,null);
 
         netThread = new NetThread();
         netThread.start();
 
-        Button movie_on = view.findViewById(R.id.movie_center_on);
-        Button movie_off = view.findViewById(R.id.movie_center_off);
+//        Button movie_on = view.findViewById(R.id.movie_center_on);
+//        Button movie_off = view.findViewById(R.id.movie_center_off);
 
 //        Button light1_on = view.findViewById(R.id.light1_on);
 //        Button light1_off = view.findViewById(R.id.light1_off);
@@ -86,8 +85,8 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
 //        fan1_off.setOnClickListener(this);
 //        fountain_on.setOnClickListener(this);
 //        fountain_off.setOnClickListener(this);
-        movie_on.setOnClickListener(this);
-        movie_off.setOnClickListener(this);
+//        movie_on.setOnClickListener(this);
+//        movie_off.setOnClickListener(this);
 
         return view;
     }

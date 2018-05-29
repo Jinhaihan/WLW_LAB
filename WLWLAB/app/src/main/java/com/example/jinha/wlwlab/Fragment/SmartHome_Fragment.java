@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.example.jinha.wlwlab.Adapter.Agriculture_Adapter;
 import com.example.jinha.wlwlab.Adapter.SmartHome_Adapter;
 import com.example.jinha.wlwlab.Configuration;
@@ -41,6 +42,7 @@ public class SmartHome_Fragment extends Fragment {
         smartHome_adapter = new SmartHome_Adapter(getChildFragmentManager(),activity);
         mViewPager =  view.findViewById(R.id.container_smarthome);
         mViewPager.setAdapter(smartHome_adapter);
+        mViewPager.setPageTransformer(true, new CubeOutTransformer());
 
         TabLayout tabLayout =  activity.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
