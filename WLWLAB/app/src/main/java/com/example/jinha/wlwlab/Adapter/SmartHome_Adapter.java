@@ -9,6 +9,7 @@ import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment_1;
 import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment_2;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment_1;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment_2;
+import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment_3;
 
 /**
  * Created by jinha on 2017/9/24.
@@ -18,6 +19,7 @@ public class SmartHome_Adapter extends FragmentPagerAdapter {
     Activity activity;
     SmartHome_Fragment_1 smartHome_fragment_1;
     SmartHome_Fragment_2 smartHome_fragment_2;
+    SmartHome_Fragment_3 smartHome_fragment_3;
 
     FragmentManager fm;
 
@@ -37,11 +39,17 @@ public class SmartHome_Adapter extends FragmentPagerAdapter {
                     smartHome_fragment_1 = new SmartHome_Fragment_1(activity);
                 return smartHome_fragment_1;
             }
-            else {
+            else if(position == 1){
                 if(smartHome_fragment_2 == null)
                     smartHome_fragment_2 = new SmartHome_Fragment_2(activity);
                 return smartHome_fragment_2;
             }
+            else{
+                if(smartHome_fragment_3 == null)
+                    smartHome_fragment_3 = new SmartHome_Fragment_3(activity);
+                return smartHome_fragment_3;
+            }
+
 
     }
 
@@ -49,7 +57,7 @@ public class SmartHome_Adapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 2;
+        return 3;
     }
 
     @Override
@@ -59,6 +67,8 @@ public class SmartHome_Adapter extends FragmentPagerAdapter {
                 return "娱乐";
             case 1:
                 return "开关";
+            case 2:
+                return "测试";
 
         }
         return null;

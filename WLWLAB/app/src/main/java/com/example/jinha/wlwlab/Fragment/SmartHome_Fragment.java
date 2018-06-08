@@ -42,7 +42,7 @@ public class SmartHome_Fragment extends Fragment {
         smartHome_adapter = new SmartHome_Adapter(getChildFragmentManager(),activity);
         mViewPager =  view.findViewById(R.id.container_smarthome);
         mViewPager.setAdapter(smartHome_adapter);
-        mViewPager.setPageTransformer(true, new CubeOutTransformer());
+        //mViewPager.setPageTransformer(true, new CubeOutTransformer());
 
         TabLayout tabLayout =  activity.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);

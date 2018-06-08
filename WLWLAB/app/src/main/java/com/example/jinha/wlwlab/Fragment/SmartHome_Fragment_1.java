@@ -135,10 +135,6 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
                                 jsonBean.setName("tvdoor");
                                 jsonBean.setOp("write");
                                 jsonBean.setData("on");
-                                jsonBean.setCtrl("1");
-                                jsonBean.setFrequency("1");
-                                jsonBean.setOperation_type("byte");
-                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_on);
                                 String s = new Gson().toJson(jsonBean);
                                 Log.e("JHH",s);
                                 send(s);
@@ -153,10 +149,10 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
                                 jsonBean.setName("tvdoor");
                                 jsonBean.setOp("write");
                                 jsonBean.setData("off");
-                                jsonBean.setCtrl("1");
-                                jsonBean.setFrequency("1");
-                                jsonBean.setOperation_type("byte");
-                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_off);
+//                                jsonBean.setCtrl("1");
+//                                jsonBean.setFrequency("1");
+//                                jsonBean.setOperation_type("byte");
+//                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_off);
                                 send(new Gson().toJson(jsonBean));
                             } catch (IOException e) {
                                 e.printStackTrace();

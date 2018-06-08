@@ -46,7 +46,8 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="40dp"
                         android:background="@drawable/btn_bg_red"
-                        android:text="LED_ALL_ON" />
+                        android:text="LED_ALL_ON"
+                        android:tag="allon"/>
 
                     <Button
                         android:id="@+id/led_off"
@@ -54,7 +55,8 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:background="@drawable/btn_bg_red"
-                        android:text="LED_ALL_OFF" />
+                        android:text="LED_ALL_OFF"
+                        android:tag="alloff"/>
 
                 </LinearLayout>
 
@@ -71,45 +73,64 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED1"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="门外灯1" />
+                            android:layout_height="wrap_content"
+                            android:text="门外灯1"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led01"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led01"/>
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED2"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="门外灯2" />
+                            android:layout_height="wrap_content"
+                            android:text="门外灯2"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led02"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led02"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED3"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="门外灯3" />
+                            android:layout_height="wrap_content"
+                            android:text="门外灯3"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led03"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led03"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -126,45 +147,63 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED4"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="走廊灯" />
+                            android:layout_height="wrap_content"
+                            android:text="走廊灯"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led04"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led04"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED5"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="厨房灯1" />
+                            android:layout_height="wrap_content"
+                            android:text="厨房灯1"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led05"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led05"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED6"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="厨房灯2" />
+                            android:layout_height="wrap_content"
+                            android:text="厨房灯2"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led06"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led06"/>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -173,52 +212,71 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="40dp"
-                    android:gravity="center">
+                    android:gravity="center"
+                    >
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED7"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="后门灯1" />
+                            android:layout_height="wrap_content"
+                            android:text="后门灯1"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led07"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led07"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED8"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="后门灯2" />
+                            android:layout_height="wrap_content"
+                            android:text="后门灯2"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led08"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led08"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/LED9"
+                        <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/btn_bg_red"
-                            android:text="后门灯3" />
+                            android:layout_height="wrap_content"
+                            android:text="后门灯3"
+                            android:textSize="12dp"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/led09"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:tag="led09"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

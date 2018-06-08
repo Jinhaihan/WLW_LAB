@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.jinha.wlwlab.JSONBean;
 import com.example.jinha.wlwlab.R;
 import com.google.gson.Gson;
+import com.suke.widget.SwitchButton;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -35,13 +36,26 @@ import java.net.Socket;
  * Created by jinha on 2017/9/23.
  */
 
-public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListener {
+public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListener,SwitchButton.OnCheckedChangeListener{
     Activity activity;
     Socket socket1;
     Socket socket2;
     NetThread netThread;
     Handler handler;
     Message message;
+
+    Button led_AllOn;
+    Button led_AllOff;
+
+    SwitchButton led01;
+    SwitchButton led02;
+    SwitchButton led03;
+    SwitchButton led04;
+    SwitchButton led05;
+    SwitchButton led06;
+    SwitchButton led07;
+    SwitchButton led08;
+    SwitchButton led09;
 
     byte[] light1_on = {0x39,0x39,0x01,0x01,0x02,0x01,0x2A };
     byte[] light1_off = {0x39,0x39,0x01,0x01,0x02,0x00,0x2A };
@@ -67,26 +81,32 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
         netThread = new NetThread();
         netThread.start();
 
-//        Button movie_on = view.findViewById(R.id.movie_center_on);
-//        Button movie_off = view.findViewById(R.id.movie_center_off);
+        led01 = view.findViewById(R.id.led01);
+        led02 = view.findViewById(R.id.led02);
+        led03 = view.findViewById(R.id.led03);
+        led04 = view.findViewById(R.id.led04);
+        led05 = view.findViewById(R.id.led05);
+        led06 = view.findViewById(R.id.led06);
+        led07 = view.findViewById(R.id.led07);
+        led08 = view.findViewById(R.id.led08);
+        led09 = view.findViewById(R.id.led09);
 
-//        Button light1_on = view.findViewById(R.id.light1_on);
-//        Button light1_off = view.findViewById(R.id.light1_off);
-//        Button fan_on = view.findViewById(R.id.fan_on);
-//        Button fan1_off = view.findViewById(R.id.fan_off);
-//        Button fountain_on = view.findViewById(R.id.fountain_on);
-//        Button fountain_off = view.findViewById(R.id.fountain_off);
-//        Button light2_on = view.findViewById(R.id.light2_on);
-//        Button light2_off = view.findViewById(R.id.light2_off);
-//
-//        light1_on.setOnClickListener(this);
-//        light1_off.setOnClickListener(this);
-//        fan_on.setOnClickListener(this);
-//        fan1_off.setOnClickListener(this);
-//        fountain_on.setOnClickListener(this);
-//        fountain_off.setOnClickListener(this);
-//        movie_on.setOnClickListener(this);
-//        movie_off.setOnClickListener(this);
+        led01.setOnCheckedChangeListener(this);
+        led02.setOnCheckedChangeListener(this);
+        led03.setOnCheckedChangeListener(this);
+        led04.setOnCheckedChangeListener(this);
+        led05.setOnCheckedChangeListener(this);
+        led06.setOnCheckedChangeListener(this);
+        led07.setOnCheckedChangeListener(this);
+        led08.setOnCheckedChangeListener(this);
+        led09.setOnCheckedChangeListener(this);
+
+
+        led_AllOn = view.findViewById(R.id.led_on);
+        led_AllOff = view.findViewById(R.id.led_off);
+
+        led_AllOn.setOnClickListener(this);
+        led_AllOff.setOnClickListener(this);
 
         return view;
     }
@@ -96,19 +116,40 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
     public void onClick(View view) {
         Log.e("JHH","有按键按下");
         switch (view.getId()){
-            case R.id.movie_center_on:
+            case R.id.led_on:
                 message = new Message();
-                message.obj = "movie_on";
-
+                message.obj = "led01";
+                message.arg1 = 3;
                 handler.sendMessage(message);
                 Log.e("JHH","向子线程发送成功1");
                 break;
-            case R.id.movie_center_off:
+            case R.id.led_off:
                 message = new Message();
-                message.obj = "movie_off";
+                message.obj = "led01";
+                message.arg1 = 4;
                 handler.sendMessage(message);
                 break;
         }
+    }
+
+    @Override
+    public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+        if(isChecked){
+            message = new Message();
+            message.obj = view.getTag();
+            message.arg1 = 1;
+
+            handler.sendMessage(message);
+            Log.e("JHH","向子线程发送成功1");
+        }
+        else {
+            message = new Message();
+            message.obj = view.getTag();
+            message.arg1 = 2;
+            handler.sendMessage(message);
+            Log.e("JHH","向子线程发送成功1");
+        }
+
     }
 
     public class NetThread extends Thread{
@@ -126,42 +167,61 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
                     Log.e("JHH","子线程收到消息");
                     super.handleMessage(msg);
                     String str = (String) msg.obj;
-                    switch (str){
-                        case "movie_on":
-                            try {
-                                Log.e("JHH","试图发送");
-                                JSONBean jsonBean = new JSONBean();
-                                jsonBean.setName("tvdoor");
-                                jsonBean.setOp("write");
-                                jsonBean.setData("on");
-                                jsonBean.setCtrl("1");
-                                jsonBean.setFrequency("1");
-                                jsonBean.setOperation_type("byte");
-                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_on);
-                                String s = new Gson().toJson(jsonBean);
-                                Log.e("JHH",s);
-                                send(s);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            break;
-                        case "movie_off":
-                            try {
-                                Log.e("JHH","试图发送");
-                                JSONBean jsonBean = new JSONBean();
-                                jsonBean.setName("tvdoor");
-                                jsonBean.setOp("write");
-                                jsonBean.setData("off");
-                                jsonBean.setCtrl("1");
-                                jsonBean.setFrequency("1");
-                                jsonBean.setOperation_type("byte");
-                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_off);
-                                send(new Gson().toJson(jsonBean));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            break;
+                    int data_flag = msg.arg1;
+                    try{
+                        JSONBean jsonBean = new JSONBean();
+                        jsonBean.setName(str);
+                        jsonBean.setOp("write");
+                        if(data_flag == 1){
+                            jsonBean.setData("on");
+                        }
+                        else if(data_flag == 2) jsonBean.setData("off");
+                        else if(data_flag == 3) jsonBean.setData("allon");
+                        else if(data_flag == 4) jsonBean.setData("alloff");
+                        String s = new Gson().toJson(jsonBean);
+                        Log.e("JHH",s);
+                        send(s);
                     }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+//                    switch (str){
+//                        case "movie_on":
+//                            try {
+//                                Log.e("JHH","试图发送");
+//                                JSONBean jsonBean = new JSONBean();
+//                                jsonBean.setName("tvdoor");
+//                                jsonBean.setOp("write");
+//                                jsonBean.setData("on");
+//                                jsonBean.setCtrl("1");
+//                                jsonBean.setFrequency("1");
+//                                jsonBean.setOperation_type("byte");
+//                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_on);
+//                                String s = new Gson().toJson(jsonBean);
+//                                Log.e("JHH",s);
+//                                send(s);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                            break;
+//                        case "movie_off":
+//                            try {
+//                                Log.e("JHH","试图发送");
+//                                JSONBean jsonBean = new JSONBean();
+//                                jsonBean.setName("tvdoor");
+//                                jsonBean.setOp("write");
+//                                jsonBean.setData("off");
+//                                jsonBean.setCtrl("1");
+//                                jsonBean.setFrequency("1");
+//                                jsonBean.setOperation_type("byte");
+//                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_off);
+//                                send(new Gson().toJson(jsonBean));
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+//                            break;
+//                    }
                 }
             };
             init();
