@@ -334,6 +334,7 @@
 
                         <Button
                             android:id="@+id/curtains_on"
+                            android:tag="cur"
                             android:layout_width="100dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -343,6 +344,7 @@
 
                         <Button
                             android:id="@+id/curtains_off"
+                            android:tag="cur"
                             android:layout_width="100dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -364,6 +366,7 @@
                         android:orientation="vertical">
                         <Button
                             android:id="@+id/window_on"
+                            android:tag="window"
                             android:layout_width="100dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"
@@ -373,6 +376,7 @@
 
                         <Button
                             android:id="@+id/window_off"
+                            android:tag="window"
                             android:layout_width="100dp"
                             android:layout_height="30dp"
                             android:layout_gravity="center"

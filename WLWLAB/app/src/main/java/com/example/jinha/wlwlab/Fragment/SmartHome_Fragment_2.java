@@ -63,8 +63,7 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
     byte[] fan_off = {0x39,0x39,0x01,0x01,0x01,0x00,0x2A };
     byte[] fountain_on = {0x39,0x39,0x01,0x01,0x03,0x01,0x2A };
     byte[] fountain_off = {0x39,0x39,0x01,0x01,0x03,0x00,0x2A };
-    //byte[] light2_on =
-    //byte[] light2_off =
+
 
     public SmartHome_Fragment_2(){}
 
@@ -90,6 +89,10 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
         led07 = view.findViewById(R.id.led07);
         led08 = view.findViewById(R.id.led08);
         led09 = view.findViewById(R.id.led09);
+        Button window_on = view.findViewById(R.id.window_on);
+        Button window_off = view.findViewById(R.id.window_off);
+        Button curtains_on = view.findViewById(R.id.curtains_on);
+        Button curtains_off = view.findViewById(R.id.curtains_off);
 
         led01.setOnCheckedChangeListener(this);
         led02.setOnCheckedChangeListener(this);
@@ -102,11 +105,18 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
         led09.setOnCheckedChangeListener(this);
 
 
+
         led_AllOn = view.findViewById(R.id.led_on);
         led_AllOff = view.findViewById(R.id.led_off);
 
+
         led_AllOn.setOnClickListener(this);
         led_AllOff.setOnClickListener(this);
+        window_on.setOnClickListener(this);
+        window_off.setOnClickListener(this);
+        curtains_on.setOnClickListener(this);
+        curtains_off.setOnClickListener(this);
+
 
         return view;
     }
@@ -129,6 +139,30 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
                 message.arg1 = 4;
                 handler.sendMessage(message);
                 break;
+            case R.id.curtains_on:
+                message = new Message();
+                message.obj = view.getTag();
+                message.arg1 = 1;
+                handler.sendMessage(message);
+                break;
+            case R.id.curtains_off:
+                message = new Message();
+                message.obj = view.getTag();
+                message.arg1 = 2;
+                handler.sendMessage(message);
+                break;
+            case R.id.window_on:
+                message = new Message();
+                message.obj = view.getTag();
+                message.arg1 = 1;
+                handler.sendMessage(message);
+                break;
+            case R.id.window_off:
+                message = new Message();
+                message.obj = view.getTag();
+                message.arg1 = 2;
+                handler.sendMessage(message);
+                break;
         }
     }
 
@@ -149,7 +183,6 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
             handler.sendMessage(message);
             Log.e("JHH","向子线程发送成功1");
         }
-
     }
 
     public class NetThread extends Thread{
@@ -158,8 +191,6 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
         public void run() {
             super.run();
             Looper.prepare();
-
-
             Log.e("JHH","开始新建Handler");
             handler = new Handler(){
                 @Override
@@ -235,6 +266,7 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
 
             } catch (IOException e) {
                 e.printStackTrace();
+
             }
         }
 

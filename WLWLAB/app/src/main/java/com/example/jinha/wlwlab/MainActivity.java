@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_SmartHome) {
             if(img_title == null)
                 img_title = (LinearLayout) findViewById(R.id.img_title);
-            img_title.setBackgroundResource(R.drawable.agriculture_title);
+            img_title.setBackgroundResource(R.drawable.smarthome_title2);
             toolbar.setBackgroundColor(Color.parseColor("#5D4037"));
             setStatusBar(drawer,Color.parseColor("#5D4037"));
             tabLayout.setBackgroundColor(Color.parseColor("#5D4037"));
