@@ -23,12 +23,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.jinha.wlwlab.Fragment.Lab_Fragment;
 import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment;
+import com.example.jinha.wlwlab.weather.WeahterService;
+import com.example.jinha.wlwlab.weather.bean.WeatherBean;
+import com.example.jinha.wlwlab.network.retrofit.RetrofitCreator;
 import com.jaeger.library.StatusBarUtil;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity
@@ -36,6 +44,7 @@ public class MainActivity extends AppCompatActivity
 
     LinearLayout img_title ;
     Toolbar toolbar;
+    TextView toolbar_text;
     DrawerLayout drawer;
     Agriculture_Fragment agriculture_fragment;
     Lab_Fragment lab_fragment;
@@ -45,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-
+    WeatherBean currentWeatherInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +84,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         navigationView.setCheckedItem(R.id.nav_Agriculture);
-        setTitle("物联网与云计算重点实验室");
+        //setTitle("物联网与云计算重点实验室");
+        toolbar_text = findViewById(R.id.weather_text);
+        toolbar_text.setText("sdasdsadasdasd");
+        getWeather("auto_ip");
         setStatusBar(drawer,Color.parseColor("#47AA71"));
 
 
@@ -188,6 +200,34 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    public void getWeather(String city){
+        RetrofitCreator.create(WeahterService.class)
+                .getUserInfo(city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<WeatherBean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {}
+
+                    @Override
+                    public void onNext(WeatherBean weahter) {
+                        currentWeatherInfo = weahter;
+                        toolbar_text.setText(weahter.getHeWeather6().get(0).getNow().getTmp());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //获取失败
+                    }
+
+                    @Override
+                    public void onComplete() {}
+                });
+    }
+
+    public WeatherBean getCurrentWeather(){
+        return currentWeatherInfo;
+    }
 }
 
 

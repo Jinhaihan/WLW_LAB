@@ -22,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.jinha.wlwlab.Configuration;
+import com.example.jinha.wlwlab.app.Configuration;
 import com.example.jinha.wlwlab.JSONBean;
 import com.example.jinha.wlwlab.R;
 import com.google.gson.Gson;

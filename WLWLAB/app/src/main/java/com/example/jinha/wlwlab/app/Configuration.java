@@ -1,4 +1,4 @@
-package com.example.jinha.wlwlab;
+package com.example.jinha.wlwlab.app;
 
 public class Configuration {
     public static String SMARTHOME_IP = "192.168.1.230";
