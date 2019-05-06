@@ -305,7 +305,7 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
         public void init() {
             try {
                 Toast.makeText(activity, "正在连接", Toast.LENGTH_LONG).show();
-                socket1 = new Socket("192.168.1.230", 10100);
+                socket1 = new Socket(Configuration.SMARTHOME_IP, 10100);
                 Log.e("JHH", "新建了Sockect");
 
             } catch (IOException e) {
@@ -315,15 +315,14 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
 
         public void send(String a) throws IOException {
             if (socket1 == null || !socket1.isConnected()) {
-                Toast.makeText(activity, "断开，重连", Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "未连接，重连", Toast.LENGTH_SHORT).show();
                 init();
+                return;
             }
             OutputStream ops = socket1.getOutputStream();
-            //ops.write(a);
             PrintWriter pw = new PrintWriter(ops);
             pw.write(a);
             pw.flush();
-            //socket1.shutdownOutput();
             ops.flush();
         }
 

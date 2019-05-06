@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.jinha.wlwlab.Configuration;
 import com.example.jinha.wlwlab.JSONBean;
 import com.example.jinha.wlwlab.R;
 import com.google.gson.Gson;
@@ -261,7 +262,7 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
         public void init(){
             try {
                         Toast.makeText(activity,"正在连接",Toast.LENGTH_LONG).show();
-                        socket1 = new Socket("192.168.1.230",10100);
+                        socket1 = new Socket(Configuration.SMARTHOME_IP,10100);
                         Log.e("JHH","新建了Sockect");
 
             } catch (IOException e) {

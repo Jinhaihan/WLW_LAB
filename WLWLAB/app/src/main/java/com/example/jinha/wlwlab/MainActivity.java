@@ -7,6 +7,7 @@ package com.example.jinha.wlwlab;
 // {39 39 01 01 03 01 2A }开喷水
 // {39 39 01 01 03 00 2A }关喷水。
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         img_title = (LinearLayout) findViewById(R.id.img_title);
 
