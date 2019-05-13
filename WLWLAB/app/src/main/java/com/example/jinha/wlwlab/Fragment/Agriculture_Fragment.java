@@ -3,6 +3,7 @@ package com.example.jinha.wlwlab.Fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,13 +18,14 @@ import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.jinha.wlwlab.Adapter.Agriculture_Adapter;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 
 /**
  * Created by jinha on 2017/9/25.
  */
 
 @SuppressLint("ValidFragment")
-public class Agriculture_Fragment extends Fragment {
+public class Agriculture_Fragment extends Fragment implements BaseFragment {
     Activity activity;
     ViewPager mViewPager;
     Agriculture_Adapter agriculture_adapter;
@@ -50,4 +52,8 @@ public class Agriculture_Fragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void voiceSend() {
+
+    }
 }

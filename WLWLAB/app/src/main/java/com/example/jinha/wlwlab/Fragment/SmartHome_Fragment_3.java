@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.jinha.wlwlab.JSONBean;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ import java.net.Socket;
  * Created by jinha on 2017/9/23.
  */
 
-public class SmartHome_Fragment_3 extends Fragment implements View.OnClickListener {
+public class SmartHome_Fragment_3 extends Fragment implements BaseFragment,View.OnClickListener {
     Activity activity;
     Socket socket1;
     NetThread netThread;
@@ -119,6 +120,11 @@ public class SmartHome_Fragment_3 extends Fragment implements View.OnClickListen
                 Log.e("JHH","向子线程发送成功1");
                 break;
         }
+    }
+
+    @Override
+    public void voiceSend() {
+
     }
 
     public class NetThread extends Thread{

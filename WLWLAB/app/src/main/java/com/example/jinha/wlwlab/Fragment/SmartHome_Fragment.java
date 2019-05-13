@@ -15,6 +15,7 @@ import com.example.jinha.wlwlab.Adapter.SmartHome_Adapter;
 import com.example.jinha.wlwlab.MainActivity;
 import com.example.jinha.wlwlab.app.Configuration;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 import com.example.jinha.wlwlab.weather.ApiManager;
 import com.example.jinha.wlwlab.weather.dynamicweather.BaseDrawer;
 import com.example.jinha.wlwlab.weather.dynamicweather.DynamicWeatherView;
@@ -24,7 +25,7 @@ import com.example.jinha.wlwlab.weather.dynamicweather.DynamicWeatherView;
  */
 
 @SuppressLint("ValidFragment")
-public class SmartHome_Fragment extends Fragment {
+public class SmartHome_Fragment extends Fragment implements BaseFragment {
     MainActivity activity;
     ViewPager mViewPager;
     SmartHome_Adapter smartHome_adapter;
@@ -74,5 +75,10 @@ public class SmartHome_Fragment extends Fragment {
     public void onDestroy() {
         dynamicWeatherView.onDestroy();
         super.onDestroy();
+    }
+
+    @Override
+    public void voiceSend() {
+
     }
 }

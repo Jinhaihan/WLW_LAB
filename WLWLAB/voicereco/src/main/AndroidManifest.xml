@@ -1,0 +1,20 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.voicereco" >
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <application>
+        <meta-data
+            android:name="com.baidu.speech.APP_ID"
+            android:value="9712669"/>
+        <meta-data
+            android:name="com.baidu.speech.API_KEY"
+            android:value="NtKu6KqaHVVQi16RpxIvq73R"/>
+        <meta-data
+            android:name="com.baidu.speech.SECRET_KEY"
+            android:value="d4f67cef1d707480d5146e70a248dfdf"/>
+    </application>
+</manifest>

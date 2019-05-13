@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,14 +25,27 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.baidu.speech.EventListener;
+import com.baidu.speech.EventManager;
+import com.baidu.speech.EventManagerFactory;
+import com.baidu.speech.asr.SpeechConstant;
 import com.example.jinha.wlwlab.Fragment.Lab_Fragment;
 import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment;
+import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.callback.VoiceFinishCallBack;
+import com.example.jinha.wlwlab.dialog.VoiceDialog;
 import com.example.jinha.wlwlab.weather.WeahterService;
 import com.example.jinha.wlwlab.weather.bean.WeatherBean;
 import com.example.jinha.wlwlab.network.retrofit.RetrofitCreator;
 import com.jaeger.library.StatusBarUtil;
+
+import org.json.JSONObject;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,21 +54,25 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener , EventListener{
 
     LinearLayout img_title ;
     Toolbar toolbar;
     TextView toolbar_text;
     DrawerLayout drawer;
+
     Agriculture_Fragment agriculture_fragment;
     Lab_Fragment lab_fragment;
     SmartHome_Fragment smartHome_fragment;
+
     TabLayout tabLayout;
     FragmentManager fragmentManager = getSupportFragmentManager();
-
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    BaseFragment currentFragment;
 
     WeatherBean currentWeatherInfo;
+
+    private EventManager wakeup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +112,25 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_main, agriculture_fragment);
         fragmentTransaction.commit();
+        currentFragment = agriculture_fragment;
+        startVoiceReco();
+    }
+
+    public void startVoiceReco(){
+        // 基于SDK唤醒词集成1.1 初始化EventManager
+        wakeup = EventManagerFactory.create(this, "wp");
+        // 基于SDK唤醒词集成1.3 注册输出事件
+        wakeup.registerListener(this); //  EventListener 中 onEvent方法
+
+        // 基于SDK唤醒词集成第2.1 设置唤醒的输入参数
+        Map<String, Object> params = new TreeMap<String, Object>();
+        params.put(SpeechConstant.ACCEPT_AUDIO_VOLUME, false);
+        params.put(SpeechConstant.WP_WORDS_FILE, "assets:///WakeUp.bin");
+        // "assets:///WakeUp.bin" 表示WakeUp.bin文件定义在assets目录下
+
+        String json = null; // 这里可以替换成你需要测试的json
+        json = new JSONObject(params).toString();
+        wakeup.send(SpeechConstant.WAKEUP_START, json, null, 0, 0);
     }
 
     @Override
@@ -121,11 +158,31 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_voice) {
+            DiyDialog2();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * 自定义dialog2 简单自定义布局
+     */
+    private void DiyDialog2() {
+        VoiceDialog voiceDialog = new VoiceDialog(this, new VoiceFinishCallBack() {
+            @Override
+            public void success(String result) {
+                Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void failed() {
+
+            }
+        });
+        voiceDialog.show();
     }
 
 
@@ -148,14 +205,10 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_main, agriculture_fragment);
             fragmentTransaction.commit();
             Log.e("JHH","切换为Agriculture");
-
+            currentFragment = agriculture_fragment;
         } else if (id == R.id.nav_lab) {
             if(img_title == null)
                 img_title = (LinearLayout) findViewById(R.id.img_title);
-//            img_title.setBackgroundResource(R.drawable.lab_title);
-//            toolbar.setBackgroundColor(Color.parseColor("#8A2BE2"));
-//            setStatusBar(drawer,Color.parseColor("#8A2BE2"));
-//            tabLayout.setBackgroundColor(Color.parseColor("#8A2BE2"));
             img_title.setBackgroundResource(R.drawable.lab_title);
             toolbar.setBackgroundColor(Color.parseColor("#1976D2"));
             setStatusBar(drawer,Color.parseColor("#1976D2"));
@@ -166,7 +219,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_main,lab_fragment);
             fragmentTransaction.commit();
-
+            currentFragment = lab_fragment;
         } else if (id == R.id.nav_SmartHome) {
             if(img_title == null)
                 img_title = (LinearLayout) findViewById(R.id.img_title);
@@ -181,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             fragmentTransaction.replace(R.id.fragment_main, smartHome_fragment);
             fragmentTransaction.commit();
             Log.e("JHH","切换为SmartHome");
-
+            currentFragment = smartHome_fragment;
         } else if (id == R.id.nav_send) {
 
         }
@@ -212,7 +265,8 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onNext(WeatherBean weahter) {
                         currentWeatherInfo = weahter;
-                        toolbar_text.setText(weahter.getHeWeather6().get(0).getNow().getTmp());
+                        WeatherBean.HeWeather6Bean.NowBean now = weahter.getHeWeather6().get(0).getNow();
+                        toolbar_text.setText(now.getTmp() + "   " +now.getCond_txt());
                     }
 
                     @Override
@@ -227,6 +281,15 @@ public class MainActivity extends AppCompatActivity
 
     public WeatherBean getCurrentWeather(){
         return currentWeatherInfo;
+    }
+
+
+    @Override
+    public void onEvent(String s, String s1, byte[] bytes, int i, int i1) {
+        Log.e("MainActivity", "onEvent: " + s);
+        if(s.equals("wp.data")){
+            DiyDialog2();
+        }
     }
 }
 

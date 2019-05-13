@@ -35,7 +35,8 @@
                         android:id="@+id/weather_text"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="wulianw"
+                        android:gravity="center|start"
+                        android:text="物联网重点实验室"
                         android:textColor="#FFFFFF"/>
 
                 </android.support.v7.widget.Toolbar>

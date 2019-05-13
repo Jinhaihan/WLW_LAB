@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.jinha.wlwlab.app.Configuration;
 import com.example.jinha.wlwlab.JSONBean;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 import com.google.gson.Gson;
 import com.suke.widget.SwitchButton;
 
@@ -40,7 +41,7 @@ import nl.dionsegijn.steppertouch.StepperTouch;
  * Created by jinha on 2017/9/23.
  */
 
-public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListener {
+public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListener, BaseFragment {
     Activity activity;
     Socket socket1;
     Socket socket2;
@@ -238,6 +239,11 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
 
     public void tv_btn_onclick(View view){
         Toast.makeText(activity,"aaa",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void voiceSend() {
+
     }
 
     public class NetThread extends Thread {

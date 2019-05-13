@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -32,7 +33,7 @@ import java.net.Socket;
  */
 
 @SuppressLint("ValidFragment")
-public class Lab_Fragment1 extends Fragment implements View.OnClickListener{
+public class Lab_Fragment1 extends Fragment implements View.OnClickListener, BaseFragment {
     Activity activity;
     Socket socket1;
     NetThread netThread;
@@ -100,6 +101,11 @@ public class Lab_Fragment1 extends Fragment implements View.OnClickListener{
                 break;
 
         }
+    }
+
+    @Override
+    public void voiceSend() {
+
     }
 
 

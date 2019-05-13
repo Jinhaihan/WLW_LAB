@@ -13,13 +13,14 @@ import android.view.ViewGroup;
 
 import com.example.jinha.wlwlab.Adapter.Lab_Adapter;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 
 /**
  * Created by jinha on 2017/9/24.
  */
 
 @SuppressLint("ValidFragment")
-public class Lab_Fragment extends Fragment {
+public class Lab_Fragment extends Fragment implements BaseFragment {
     Activity activity;
     ViewPager mViewPager;
     Lab_Adapter lab_adapter;
@@ -43,5 +44,10 @@ public class Lab_Fragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void voiceSend() {
+
     }
 }

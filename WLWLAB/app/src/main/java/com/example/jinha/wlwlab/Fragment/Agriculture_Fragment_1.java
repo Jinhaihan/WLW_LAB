@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,7 +33,7 @@ import java.net.Socket;
  * Created by jinha on 2017/9/23.
  */
 
-public class Agriculture_Fragment_1 extends Fragment implements View.OnClickListener {
+public class Agriculture_Fragment_1 extends Fragment implements View.OnClickListener, BaseFragment {
     Activity activity;
     Socket socket1;
     Socket socket2;
@@ -130,6 +131,11 @@ public class Agriculture_Fragment_1 extends Fragment implements View.OnClickList
             case R.id.light2_on:
             case R.id.light2_off:
         }
+    }
+
+    @Override
+    public void voiceSend() {
+
     }
 
     public class NetThread extends Thread{

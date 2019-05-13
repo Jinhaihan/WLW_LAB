@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.example.jinha.wlwlab.app.Configuration;
 import com.example.jinha.wlwlab.JSONBean;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 import com.google.gson.Gson;
 import com.suke.widget.SwitchButton;
 
@@ -37,7 +38,7 @@ import java.net.Socket;
  * Created by jinha on 2017/9/23.
  */
 
-public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListener,SwitchButton.OnCheckedChangeListener{
+public class SmartHome_Fragment_2 extends Fragment implements BaseFragment, View.OnClickListener,SwitchButton.OnCheckedChangeListener{
     Activity activity;
     Socket socket1;
     Socket socket2;
@@ -184,6 +185,11 @@ public class SmartHome_Fragment_2 extends Fragment implements View.OnClickListen
             handler.sendMessage(message);
             Log.e("JHH","向子线程发送成功1");
         }
+    }
+
+    @Override
+    public void voiceSend() {
+
     }
 
     public class NetThread extends Thread{

@@ -10,12 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.base.BaseFragment;
 
 /**
  * Created by jinha on 2017/9/23.
  */
 
-public class Agriculture_Fragment_2 extends Fragment {
+public class Agriculture_Fragment_2 extends Fragment implements BaseFragment {
     Activity activity;
 
     public Agriculture_Fragment_2(){}
@@ -34,6 +35,8 @@ public class Agriculture_Fragment_2 extends Fragment {
     }
 
 
+    @Override
+    public void voiceSend() {
 
-
+    }
 }
