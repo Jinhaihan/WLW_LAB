@@ -16,6 +16,7 @@ import com.example.jinha.wlwlab.MainActivity;
 import com.example.jinha.wlwlab.app.Configuration;
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.example.jinha.wlwlab.weather.ApiManager;
 import com.example.jinha.wlwlab.weather.dynamicweather.BaseDrawer;
 import com.example.jinha.wlwlab.weather.dynamicweather.DynamicWeatherView;
@@ -78,7 +79,7 @@ public class SmartHome_Fragment extends Fragment implements BaseFragment {
     }
 
     @Override
-    public void voiceSend() {
+    public void voiceSend(VoiceCommandBean voiceCommandBean) {
 
     }
 }

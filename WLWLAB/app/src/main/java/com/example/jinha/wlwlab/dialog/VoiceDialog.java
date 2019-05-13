@@ -3,9 +3,11 @@ package com.example.jinha.wlwlab.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.speech.tts.Voice;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -15,8 +17,10 @@ import com.baidu.speech.EventManager;
 import com.baidu.speech.EventManagerFactory;
 import com.baidu.speech.asr.SpeechConstant;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.bean.VoiceBean;
 import com.example.jinha.wlwlab.callback.VoiceFinishCallBack;
 import com.example.voicereco.mini.AutoCheck;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -24,6 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class VoiceDialog extends Dialog implements EventListener {
+    String TAG = "VoiceDialog";
     private EventManager asr;
     private boolean logTime = true;
     VoiceFinishCallBack voiceFinishCallBack;
@@ -59,13 +64,16 @@ public class VoiceDialog extends Dialog implements EventListener {
     String last;
     @Override
     public void onEvent(String s, String s1, byte[] bytes, int i, int i1) {
-        Log.e("VoiceDialog", "Evenr: " + s);
+        Log.e(TAG, "Event: " + s);
         switch (s) {
             case "asr.partial":
                 last = s1;
+                Log.e(TAG, s1 );
                 break;
             case "asr.finish":
-                voiceFinishCallBack.success(last);
+                Gson gson = new Gson();
+                VoiceBean voiceBean = gson.fromJson(last,VoiceBean.class);
+                voiceFinishCallBack.success(voiceBean);
                 break;
             case "asr.exit":
                 stop();

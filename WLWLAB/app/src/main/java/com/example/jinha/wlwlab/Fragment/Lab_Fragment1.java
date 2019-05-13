@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -104,7 +105,7 @@ public class Lab_Fragment1 extends Fragment implements View.OnClickListener, Bas
     }
 
     @Override
-    public void voiceSend() {
+    public void voiceSend(VoiceCommandBean voiceCommandBean) {
 
     }
 

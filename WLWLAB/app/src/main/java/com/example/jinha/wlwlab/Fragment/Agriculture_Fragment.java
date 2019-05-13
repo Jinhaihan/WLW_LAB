@@ -19,6 +19,7 @@ import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.example.jinha.wlwlab.Adapter.Agriculture_Adapter;
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 
 /**
  * Created by jinha on 2017/9/25.
@@ -53,7 +54,7 @@ public class Agriculture_Fragment extends Fragment implements BaseFragment {
     }
 
     @Override
-    public void voiceSend() {
+    public void voiceSend(VoiceCommandBean voiceCommandBean) {
 
     }
 }

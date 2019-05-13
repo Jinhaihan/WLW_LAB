@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -134,7 +135,7 @@ public class Agriculture_Fragment_1 extends Fragment implements View.OnClickList
     }
 
     @Override
-    public void voiceSend() {
+    public void voiceSend(VoiceCommandBean voiceCommandBean) {
 
     }
 

@@ -35,6 +35,8 @@ import com.example.jinha.wlwlab.Fragment.Lab_Fragment;
 import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceBean;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.example.jinha.wlwlab.callback.VoiceFinishCallBack;
 import com.example.jinha.wlwlab.dialog.VoiceDialog;
 import com.example.jinha.wlwlab.weather.WeahterService;
@@ -55,7 +57,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener , EventListener{
-
+    String TAG = "MainActivity";
     LinearLayout img_title ;
     Toolbar toolbar;
     TextView toolbar_text;
@@ -173,8 +175,13 @@ public class MainActivity extends AppCompatActivity
     private void DiyDialog2() {
         VoiceDialog voiceDialog = new VoiceDialog(this, new VoiceFinishCallBack() {
             @Override
-            public void success(String result) {
-                Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+            public void success(VoiceBean result) {
+                Toast.makeText(MainActivity.this, result.getBest_result(), Toast.LENGTH_SHORT).show();
+                VoiceCommandBean voiceCommandBean = new VoiceCommandBean();
+                voiceCommandBean.op = result.getBest_result().substring(0,2);
+                voiceCommandBean.tar = result.getBest_result().substring(2);
+                Log.e(TAG, "success: " + voiceCommandBean.op + "     " +voiceCommandBean.tar );
+                currentFragment.voiceSend(voiceCommandBean);
             }
 
             @Override

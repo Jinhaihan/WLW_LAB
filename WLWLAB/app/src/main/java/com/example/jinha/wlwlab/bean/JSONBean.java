@@ -1,4 +1,4 @@
-package com.example.jinha.wlwlab;
+package com.example.jinha.wlwlab.bean;
 
 public class JSONBean {
 

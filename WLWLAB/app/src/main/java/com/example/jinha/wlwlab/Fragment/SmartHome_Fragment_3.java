@@ -24,9 +24,10 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.jinha.wlwlab.JSONBean;
+import com.example.jinha.wlwlab.bean.JSONBean;
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -123,7 +124,7 @@ public class SmartHome_Fragment_3 extends Fragment implements BaseFragment,View.
     }
 
     @Override
-    public void voiceSend() {
+    public void voiceSend(VoiceCommandBean voiceCommandBean) {
 
     }
 

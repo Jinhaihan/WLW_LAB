@@ -23,9 +23,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.jinha.wlwlab.app.Configuration;
-import com.example.jinha.wlwlab.JSONBean;
+import com.example.jinha.wlwlab.bean.JSONBean;
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.google.gson.Gson;
 import com.suke.widget.SwitchButton;
 
@@ -188,7 +189,7 @@ public class SmartHome_Fragment_2 extends Fragment implements BaseFragment, View
     }
 
     @Override
-    public void voiceSend() {
+    public void voiceSend(VoiceCommandBean voiceCommandBean) {
 
     }
 

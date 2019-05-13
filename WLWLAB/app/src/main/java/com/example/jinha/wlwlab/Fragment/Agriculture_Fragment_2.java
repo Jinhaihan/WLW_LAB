@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
+import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 
 /**
  * Created by jinha on 2017/9/23.
@@ -36,7 +37,7 @@ public class Agriculture_Fragment_2 extends Fragment implements BaseFragment {
 
 
     @Override
-    public void voiceSend() {
+    public void voiceSend(VoiceCommandBean voiceCommandBean) {
 
     }
 }
