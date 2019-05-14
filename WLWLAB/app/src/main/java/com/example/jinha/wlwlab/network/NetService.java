@@ -12,9 +12,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.jinha.wlwlab.app.Configuration;
-import com.example.jinha.wlwlab.bean.JSONBean;
-import com.google.gson.Gson;
+import com.example.jinha.wlwlab.app.Config;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -47,7 +45,7 @@ public class NetService extends Service {
 
     public void initSocket(){
         try {
-            smartHomeSocket = new Socket(Configuration.SMARTHOME_IP,Configuration.SMARTHOME_PORT);
+            smartHomeSocket = new Socket(Config.SMARTHOME_IP, Config.SMARTHOME_PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,7 +1,6 @@
 package com.example.jinha.wlwlab.Fragment;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -13,12 +12,11 @@ import android.view.ViewGroup;
 
 import com.example.jinha.wlwlab.Adapter.SmartHome_Adapter;
 import com.example.jinha.wlwlab.MainActivity;
-import com.example.jinha.wlwlab.app.Configuration;
+import com.example.jinha.wlwlab.app.Config;
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
 import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.example.jinha.wlwlab.weather.ApiManager;
-import com.example.jinha.wlwlab.weather.dynamicweather.BaseDrawer;
 import com.example.jinha.wlwlab.weather.dynamicweather.DynamicWeatherView;
 
 /**
@@ -30,7 +28,7 @@ public class SmartHome_Fragment extends Fragment implements BaseFragment {
     MainActivity activity;
     ViewPager mViewPager;
     SmartHome_Adapter smartHome_adapter;
-    static Configuration configuration = new Configuration();
+    static Config configuration = new Config();
     DynamicWeatherView dynamicWeatherView;
 
     @SuppressLint("ValidFragment")

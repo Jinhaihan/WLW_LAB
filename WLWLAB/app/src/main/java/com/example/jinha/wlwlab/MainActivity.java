@@ -17,7 +17,6 @@ import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -38,11 +37,13 @@ import com.baidu.speech.asr.SpeechConstant;
 import com.example.jinha.wlwlab.Fragment.Lab_Fragment;
 import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment;
+import com.example.jinha.wlwlab.app.Constant;
 import com.example.jinha.wlwlab.base.BaseFragment;
 import com.example.jinha.wlwlab.bean.VoiceBean;
 import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.example.jinha.wlwlab.callback.VoiceFinishCallBack;
-import com.example.jinha.wlwlab.dialog.VoiceDialog;
+import com.example.jinha.wlwlab.voice.VoiceCommand;
+import com.example.jinha.wlwlab.voice.VoiceDialog;
 import com.example.jinha.wlwlab.network.NetService;
 import com.example.jinha.wlwlab.weather.WeahterService;
 import com.example.jinha.wlwlab.weather.bean.WeatherBean;
@@ -204,7 +205,8 @@ public class MainActivity extends AppCompatActivity
                 voiceCommandBean.op = result.getBest_result().substring(0,2);
                 voiceCommandBean.tar = result.getBest_result().substring(2);
                 Log.e(TAG, "success: " + voiceCommandBean.op + "     " +voiceCommandBean.tar );
-                currentFragment.voiceSend(voiceCommandBean);
+                //currentFragment.voiceSend(voiceCommandBean);
+                sendMessage(NetService.SmartHome, VoiceCommand.toJSON(voiceCommandBean));
             }
 
             @Override

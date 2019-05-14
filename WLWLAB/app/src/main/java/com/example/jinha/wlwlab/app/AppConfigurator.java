@@ -114,7 +114,7 @@ public class AppConfigurator {
     private void checkConfiguration() {
         final boolean isReady = (boolean) APP_CONFIGS.get(AppConfigKeys.CONFIG_READY);
         if (!isReady) {
-            throw new RuntimeException("App Configuration is not ready, configure must be call");
+            throw new RuntimeException("App Config is not ready, configure must be call");
         }
     }
 

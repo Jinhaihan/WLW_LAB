@@ -10,9 +10,6 @@ package com.example.jinha.wlwlab.Fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,20 +19,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.jinha.wlwlab.GetCommand;
 import com.example.jinha.wlwlab.MainActivity;
-import com.example.jinha.wlwlab.app.Configuration;
-import com.example.jinha.wlwlab.bean.JSONBean;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.app.Constant;
 import com.example.jinha.wlwlab.base.BaseFragment;
 import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.example.jinha.wlwlab.network.NetService;
-import com.google.gson.Gson;
 import com.suke.widget.SwitchButton;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 import nl.dionsegijn.steppertouch.OnStepCallback;
 import nl.dionsegijn.steppertouch.StepperTouch;
@@ -137,7 +128,7 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
                     s = "v-";
                 }
                 yinliang = i;
-                sendMessage(0,2,s);
+                sendMessage(Constant.NULL,Constant.OBJ_DATA,s);
             }
         });
 
@@ -155,14 +146,14 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
                     s = "c-";
                 }
                 pindao = i;
-                sendMessage(0,2,s);
+                sendMessage(Constant.NULL,Constant.OBJ_DATA,s);
             }
         });
 
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                sendMessage(0,2,"v0");
+                sendMessage(0,Constant.OBJ_DATA,"v0");
             }
         });
         return view;
@@ -175,54 +166,32 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
         //arg2的值，1是发送name=obj，2是发送name固定，data=obj
         switch (view.getId()) {
             case R.id.ent_on:
-                sendMessage(1,1,"ent");
-                Log.e("JHH", "向子线程发送成功1");
+                sendMessage(Constant.ON,Constant.OBJ_NAME,"ent");
                 break;
             case R.id.ent_off:
-                sendMessage(0,1,"ent");
+                sendMessage(Constant.OFF,Constant.OBJ_NAME,"ent");
                 break;
             case R.id.mee_on:
-                sendMessage(1,1,"mee");
+                sendMessage(Constant.ON,Constant.OBJ_NAME,"mee");
                 break;
             case R.id.mee_off:
-                sendMessage(0,1,"mee");
+                sendMessage(Constant.OFF,Constant.OBJ_NAME,"mee");
                 break;
             case R.id.tv_door_on:
-                sendMessage(1,1,"tvd");
+                sendMessage(Constant.ON,Constant.OBJ_NAME,"tvd");
                 break;
             case R.id.tv_door_off:
-                sendMessage(0,1,"tvd");
+                sendMessage(Constant.OFF,Constant.OBJ_NAME,"tvd");
                 break;
             default:
-                sendMessage(1,2,view.getTag().toString());
+                sendMessage(Constant.OFF,Constant.OBJ_DATA,view.getTag().toString());
                 break;
 
         }
     }
 
     public void sendMessage(int arg1, int arg2, String target){
-        //arg2的值，1是发送name=obj，2是发送name固定，data=obj
-        String s;
-        JSONBean jsonBean = new JSONBean();
-        switch (arg2){
-            case 1:
-                jsonBean.setName(target);
-                jsonBean.setOp("write");
-                if (arg1 == 1) jsonBean.setData("on");
-                else jsonBean.setData("off");
-                s = new Gson().toJson(jsonBean);
-                break;
-            case 2:
-                jsonBean.setName("tvp");
-                jsonBean.setOp("write");
-                jsonBean.setData(target);
-                s = new Gson().toJson(jsonBean);
-                break;
-            default:
-                s = "";
-                break;
-        }
-        activity.sendMessage(NetService.SmartHome,s);
+        activity.sendMessage(NetService.SmartHome, GetCommand.getString(arg1,arg2,target));
     }
 
     public void tv_btn_onclick(View view){

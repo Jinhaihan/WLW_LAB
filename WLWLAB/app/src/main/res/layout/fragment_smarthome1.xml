@@ -40,7 +40,7 @@
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
                     app:layout_collapseParallaxMultiplier="0.7"
-                    card_view:cardBackgroundColor="#FFFFFF"
+                    card_view:cardBackgroundColor="#AAFFFFFF"
                     card_view:cardCornerRadius="2dp"
                     card_view:cardElevation="5dp"
                     card_view:contentPadding="8dp">
@@ -204,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="14dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            card_view:cardBackgroundColor="#FFFFFF"
+            card_view:cardBackgroundColor="#AAFFFFFF"
             card_view:cardCornerRadius="2dp"
             card_view:cardElevation="5dp"
             card_view:contentPadding="8dp">

@@ -10,9 +10,6 @@ package com.example.jinha.wlwlab.Fragment;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,22 +17,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.example.jinha.wlwlab.GetCommand;
 import com.example.jinha.wlwlab.MainActivity;
-import com.example.jinha.wlwlab.app.Configuration;
-import com.example.jinha.wlwlab.bean.JSONBean;
 import com.example.jinha.wlwlab.R;
+import com.example.jinha.wlwlab.app.Constant;
 import com.example.jinha.wlwlab.base.BaseFragment;
 import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.example.jinha.wlwlab.network.NetService;
-import com.google.gson.Gson;
 import com.suke.widget.SwitchButton;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 /**
  * Created by jinha on 2017/9/23.
@@ -124,22 +114,22 @@ public class SmartHome_Fragment_2 extends Fragment implements BaseFragment, View
         Log.e("JHH","有按键按下");
         switch (view.getId()){
             case R.id.led_on:
-                sendMessage(3,"led01");
+                sendMessage(Constant.ALL_ON,"led01");
                 break;
             case R.id.led_off:
-                sendMessage(4,"led01");
+                sendMessage(Constant.ALL_OFF,"led01");
                 break;
             case R.id.curtains_on:
-                sendMessage(1,view.getTag().toString());
+                sendMessage(Constant.ON,view.getTag().toString());
                 break;
             case R.id.curtains_off:
-                sendMessage(2,view.getTag().toString());
+                sendMessage(Constant.OFF,view.getTag().toString());
                 break;
             case R.id.window_on:
-                sendMessage(1,view.getTag().toString());
+                sendMessage(Constant.ON,view.getTag().toString());
                 break;
             case R.id.window_off:
-                sendMessage(2,view.getTag().toString());
+                sendMessage(Constant.OFF,view.getTag().toString());
                 break;
         }
     }
@@ -147,26 +137,15 @@ public class SmartHome_Fragment_2 extends Fragment implements BaseFragment, View
     @Override
     public void onCheckedChanged(SwitchButton view, boolean isChecked) {
         if(isChecked){
-            sendMessage(1,view.getTag().toString());
+            sendMessage(Constant.ON,view.getTag().toString());
         }
         else {
-            sendMessage(2,view.getTag().toString());
+            sendMessage(Constant.OFF,view.getTag().toString());
         }
     }
 
     public void sendMessage(int args, String target){
-        JSONBean jsonBean = new JSONBean();
-        jsonBean.setName(target);
-        jsonBean.setOp("write");
-        if(args == 1){
-            jsonBean.setData("on");
-        }
-        else if(args == 2) jsonBean.setData("off");
-        else if(args == 3) jsonBean.setData("allon");
-        else if(args == 4) jsonBean.setData("alloff");
-        String s = new Gson().toJson(jsonBean);
-        Log.e("JHH",s);
-        activity.sendMessage(NetService.SmartHome,s);
+        activity.sendMessage(NetService.SmartHome, GetCommand.getString(args,1,target));
     }
 
     @Override

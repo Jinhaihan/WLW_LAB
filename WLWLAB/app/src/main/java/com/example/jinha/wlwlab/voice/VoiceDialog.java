@@ -1,4 +1,4 @@
-package com.example.jinha.wlwlab.dialog;
+package com.example.jinha.wlwlab.voice;
 
 import android.app.Dialog;
 import android.content.Context;
