@@ -7,9 +7,13 @@ package com.example.jinha.wlwlab;
 // {39 39 01 01 03 01 2A }开喷水
 // {39 39 01 01 03 00 2A }关喷水。
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -39,6 +43,7 @@ import com.example.jinha.wlwlab.bean.VoiceBean;
 import com.example.jinha.wlwlab.bean.VoiceCommandBean;
 import com.example.jinha.wlwlab.callback.VoiceFinishCallBack;
 import com.example.jinha.wlwlab.dialog.VoiceDialog;
+import com.example.jinha.wlwlab.network.NetService;
 import com.example.jinha.wlwlab.weather.WeahterService;
 import com.example.jinha.wlwlab.weather.bean.WeatherBean;
 import com.example.jinha.wlwlab.network.retrofit.RetrofitCreator;
@@ -56,7 +61,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener , EventListener{
+        implements NavigationView.OnNavigationItemSelectedListener , EventListener {
     String TAG = "MainActivity";
     LinearLayout img_title ;
     Toolbar toolbar;
@@ -75,6 +80,21 @@ public class MainActivity extends AppCompatActivity
     WeatherBean currentWeatherInfo;
 
     private EventManager wakeup;
+
+    public NetService.NetBinder binder;
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            binder = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            binder = (NetService.NetBinder) service;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +136,9 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
         currentFragment = agriculture_fragment;
         startVoiceReco();
+
+        Intent intent = new Intent(this, NetService.class);
+        bindService(intent,mConnection,BIND_AUTO_CREATE);
     }
 
     public void startVoiceReco(){
@@ -297,6 +320,10 @@ public class MainActivity extends AppCompatActivity
         if(s.equals("wp.data")){
             DiyDialog2();
         }
+    }
+
+    public void sendMessage(int type, String message){
+        binder.sendMessage(type,message);
     }
 }
 

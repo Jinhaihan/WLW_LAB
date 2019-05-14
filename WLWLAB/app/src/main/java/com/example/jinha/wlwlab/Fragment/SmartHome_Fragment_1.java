@@ -22,11 +22,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.jinha.wlwlab.MainActivity;
 import com.example.jinha.wlwlab.app.Configuration;
 import com.example.jinha.wlwlab.bean.JSONBean;
 import com.example.jinha.wlwlab.R;
 import com.example.jinha.wlwlab.base.BaseFragment;
 import com.example.jinha.wlwlab.bean.VoiceCommandBean;
+import com.example.jinha.wlwlab.network.NetService;
 import com.google.gson.Gson;
 import com.suke.widget.SwitchButton;
 
@@ -43,12 +45,7 @@ import nl.dionsegijn.steppertouch.StepperTouch;
  */
 
 public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListener, BaseFragment {
-    Activity activity;
-    Socket socket1;
-    Socket socket2;
-    NetThread netThread;
-    Handler handler;
-    Message message;
+    MainActivity activity;
     int yinliang;
     int pindao;
 
@@ -66,7 +63,7 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
 
     @SuppressLint("ValidFragment")
     public SmartHome_Fragment_1(Activity activity) {
-        this.activity = activity;
+        this.activity = (MainActivity) activity;
     }
 
     @Nullable
@@ -74,8 +71,6 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = activity.getLayoutInflater().inflate(R.layout.fragment_smarthome1, null);
 
-        netThread = new NetThread();
-        netThread.start();
 
         Button ent_on = view.findViewById(R.id.ent_on);
         Button ent_off = view.findViewById(R.id.ent_off);
@@ -133,17 +128,16 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
         stepperTouch.stepper.addStepCallback(new OnStepCallback() {
             @Override
             public void onStep(int i, boolean b) {
-                Message message = new Message();
+                String s;
                 if(i>yinliang){
-                  message.obj = "v+";
+                  s = "v+";
 
                 }
                 else{
-                    message.obj = "v-";
+                    s = "v-";
                 }
                 yinliang = i;
-                message.arg2 = 2;
-                handler.sendMessage(message);
+                sendMessage(0,2,s);
             }
         });
 
@@ -152,27 +146,23 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
         stepperTouch2.stepper.addStepCallback(new OnStepCallback() {
             @Override
             public void onStep(int i, boolean b) {
-                Message message = new Message();
+                String s;
                 if(i>pindao){
-                    message.obj = "c+";
+                    s = "c+";
 
                 }
                 else{
-                    message.obj = "c-";
+                    s = "c-";
                 }
                 pindao = i;
-                message.arg2 = 2;
-                handler.sendMessage(message);
+                sendMessage(0,2,s);
             }
         });
 
         switchButton.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Message message = new Message();
-                message.obj= "v0";
-                message.arg2 = 2;
-                handler.sendMessage(message);
+                sendMessage(0,2,"v0");
             }
         });
         return view;
@@ -182,60 +172,57 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View view) {
         Log.e("JHH", "有按键按下");
+        //arg2的值，1是发送name=obj，2是发送name固定，data=obj
         switch (view.getId()) {
             case R.id.ent_on:
-                message = new Message();
-                message.obj = "ent";
-                message.arg1 = 1;
-                message.arg2 = 1;//1是发送name=obj，2是发送name固定，data=obj
-                handler.sendMessage(message);
+                sendMessage(1,1,"ent");
                 Log.e("JHH", "向子线程发送成功1");
                 break;
             case R.id.ent_off:
-                message = new Message();
-                message.obj = "ent";
-                message.arg1 = 0;
-                message.arg2 = 1;//1是发送name=obj，2是发送name固定，data=obj
-                handler.sendMessage(message);
+                sendMessage(0,1,"ent");
                 break;
             case R.id.mee_on:
-                message = new Message();
-                message.obj = "mee";
-                message.arg1 = 1;
-                message.arg2 = 1;//1是发送name=obj，2是发送name固定，data=obj
-                handler.sendMessage(message);
+                sendMessage(1,1,"mee");
                 break;
             case R.id.mee_off:
-                message = new Message();
-                message.obj = "mee";
-                message.arg1 = 0;
-                message.arg2 = 1;//1是发送name=obj，2是发送name固定，data=obj
-                handler.sendMessage(message);
+                sendMessage(0,1,"mee");
                 break;
             case R.id.tv_door_on:
-                message = new Message();
-                message.obj = "tvd";
-                message.arg1 = 1;
-                message.arg2 = 1;//1是发送name=obj，2是发送name固定，data=obj
-                handler.sendMessage(message);
+                sendMessage(1,1,"tvd");
                 break;
             case R.id.tv_door_off:
-                message = new Message();
-                message.obj = "tvd";
-                message.arg1 = 0;
-                message.arg2 = 1;//1是发送name=obj，2是发送name固定，data=obj
-                handler.sendMessage(message);
+                sendMessage(0,1,"tvd");
                 break;
             default:
-                message = new Message();
-                message.obj = view.getTag();
-                //message.
-                message.arg1 = 1;
-                message.arg2 = 2;//1是发送name=obj，2是发送name固定，data=obj
-                handler.sendMessage(message);
+                sendMessage(1,2,view.getTag().toString());
                 break;
 
         }
+    }
+
+    public void sendMessage(int arg1, int arg2, String target){
+        //arg2的值，1是发送name=obj，2是发送name固定，data=obj
+        String s;
+        JSONBean jsonBean = new JSONBean();
+        switch (arg2){
+            case 1:
+                jsonBean.setName(target);
+                jsonBean.setOp("write");
+                if (arg1 == 1) jsonBean.setData("on");
+                else jsonBean.setData("off");
+                s = new Gson().toJson(jsonBean);
+                break;
+            case 2:
+                jsonBean.setName("tvp");
+                jsonBean.setOp("write");
+                jsonBean.setData(target);
+                s = new Gson().toJson(jsonBean);
+                break;
+            default:
+                s = "";
+                break;
+        }
+        activity.sendMessage(NetService.SmartHome,s);
     }
 
     public void tv_btn_onclick(View view){
@@ -247,92 +234,4 @@ public class SmartHome_Fragment_1 extends Fragment implements View.OnClickListen
 
     }
 
-    public class NetThread extends Thread {
-        @SuppressLint("HandlerLeak")
-        @Override
-        public void run() {
-            super.run();
-            Looper.prepare();
-
-            Log.e("JHH", "开始新建Handler");
-            handler = new Handler() {
-                @Override
-                public void handleMessage(Message msg) {
-                    Log.e("JHH", "子线程收到消息");
-                    super.handleMessage(msg);
-                    String str = (String) msg.obj;
-                    switch (msg.arg2){
-                        case 1:
-                            try {
-                                Log.e("JHH", "试图发送");
-                                JSONBean jsonBean = new JSONBean();
-                                jsonBean.setName(str);
-                                jsonBean.setOp("write");
-                                if (msg.arg1 == 1) jsonBean.setData("on");
-                                else jsonBean.setData("off");
-//                                jsonBean.setCtrl("1");
-//                                jsonBean.setFrequency("1");
-//                                jsonBean.setOperation_type("byte");
-//                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_off);
-                                String s = new Gson().toJson(jsonBean);
-                                Log.e("JHH", s);
-                                send(s);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            break;
-                        case 2:
-                            try {
-                                Log.e("JHH", "试图发送");
-                                JSONBean jsonBean = new JSONBean();
-                                jsonBean.setName("tvp");
-                                jsonBean.setOp("write");
-                                jsonBean.setData(str);
-//                                jsonBean.setCtrl("1");
-//                                jsonBean.setFrequency("1");
-//                                jsonBean.setOperation_type("byte");
-//                                jsonBean.setOperation(SmartHome_Fragment.configuration.MoiveCenter_off);
-                                String s = new Gson().toJson(jsonBean);
-                                Log.e("JHH", s);
-                                send(s);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            break;
-                    }
-
-
-
-                }
-            };
-            init();
-            Looper.loop();
-        }
-
-        public void init() {
-            try {
-                Toast.makeText(activity, "正在连接", Toast.LENGTH_LONG).show();
-                socket1 = new Socket(Configuration.SMARTHOME_IP, 10100);
-                Log.e("JHH", "新建了Sockect");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public void send(String a) throws IOException {
-            if (socket1 == null || !socket1.isConnected()) {
-                Toast.makeText(activity, "未连接，重连", Toast.LENGTH_SHORT).show();
-                init();
-                return;
-            }
-            OutputStream ops = socket1.getOutputStream();
-            PrintWriter pw = new PrintWriter(ops);
-            pw.write(a);
-            pw.flush();
-            ops.flush();
-        }
-
-
-    }
 }

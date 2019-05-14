@@ -29,6 +29,8 @@
         </activity>
         <activity android:name=".mini.ActivityMyMiniRecog" >
         </activity>
+
+        <service android:name=".network.NetService"/>
     </application>
 
 </manifest>

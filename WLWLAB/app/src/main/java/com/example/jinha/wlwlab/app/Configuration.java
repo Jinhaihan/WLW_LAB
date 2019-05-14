@@ -1,7 +1,8 @@
 package com.example.jinha.wlwlab.app;
 
 public class Configuration {
-    public static String SMARTHOME_IP = "192.168.1.230";
+    public static String SMARTHOME_IP = "192.168.1.3";
+    public static int SMARTHOME_PORT = 8080;
     public int frequency_315 = 1;
     public int frequency_433 = 2;
     public int frequency_Infrared = 3;

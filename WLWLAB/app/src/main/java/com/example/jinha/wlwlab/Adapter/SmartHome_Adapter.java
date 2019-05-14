@@ -10,6 +10,7 @@ import com.example.jinha.wlwlab.Fragment.Agriculture_Fragment_2;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment_1;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment_2;
 import com.example.jinha.wlwlab.Fragment.SmartHome_Fragment_3;
+import com.example.jinha.wlwlab.base.BaseFragment;
 
 /**
  * Created by jinha on 2017/9/24.
@@ -53,6 +54,17 @@ public class SmartHome_Adapter extends FragmentPagerAdapter {
 
     }
 
+    public BaseFragment getFragment(int i){
+        switch (i){
+            case 0:
+                return smartHome_fragment_1;
+            case 1:
+                return smartHome_fragment_2;
+            case 2:
+                return smartHome_fragment_3;
+        }
+        return null;
+    }
 
     @Override
     public int getCount() {

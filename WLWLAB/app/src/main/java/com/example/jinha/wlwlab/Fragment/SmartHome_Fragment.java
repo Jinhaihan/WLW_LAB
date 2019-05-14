@@ -80,6 +80,6 @@ public class SmartHome_Fragment extends Fragment implements BaseFragment {
 
     @Override
     public void voiceSend(VoiceCommandBean voiceCommandBean) {
-
+        smartHome_adapter.getFragment(mViewPager.getCurrentItem()).voiceSend(voiceCommandBean);
     }
 }
