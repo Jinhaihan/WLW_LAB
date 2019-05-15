@@ -11,6 +11,7 @@ import android.speech.tts.Voice;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.baidu.speech.EventListener;
 import com.baidu.speech.EventManager;
@@ -32,6 +33,7 @@ public class VoiceDialog extends Dialog implements EventListener {
     private EventManager asr;
     private boolean logTime = true;
     VoiceFinishCallBack voiceFinishCallBack;
+    TextView resultTextView;
 
     protected boolean enableOffline = false; // 测试离线命令词，需要改成true
 
@@ -52,7 +54,7 @@ public class VoiceDialog extends Dialog implements EventListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.dialog_voice);
-
+        resultTextView = findViewById(R.id.result);
         // 基于sdk集成1.1 初始化EventManager对象
         asr = EventManagerFactory.create(getContext(), "asr");
         // 基于sdk集成1.3 注册自己的输出事件类
@@ -65,13 +67,15 @@ public class VoiceDialog extends Dialog implements EventListener {
     @Override
     public void onEvent(String s, String s1, byte[] bytes, int i, int i1) {
         Log.e(TAG, "Event: " + s);
+        Gson gson = new Gson();
         switch (s) {
             case "asr.partial":
                 last = s1;
                 Log.e(TAG, s1 );
+                VoiceBean voiceBeanTemp = gson.fromJson(last,VoiceBean.class);
+                resultTextView.setText(voiceBeanTemp.getBest_result());
                 break;
             case "asr.finish":
-                Gson gson = new Gson();
                 VoiceBean voiceBean = gson.fromJson(last,VoiceBean.class);
                 voiceFinishCallBack.success(voiceBean);
                 break;
